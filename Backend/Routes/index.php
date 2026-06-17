@@ -8,6 +8,8 @@ use Dotenv\Dotenv;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 require_once __DIR__ . "/../Controllers/Usuario/usuarioController.php";
+require_once __DIR__ . "/../Controllers/Mesa/mesaController.php";
+
 
 $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->load();
@@ -48,6 +50,26 @@ if ($rota === '/usuario/login') {
 
     if ($metodo === 'POST') {
         $controller->fazerLogin();
+    }
+}
+
+if ($rota === '/mesa') {
+    $controller = new MesaController();
+
+    if ($metodo === 'GET') {
+        $controller->listarMesas();
+    }
+
+    if ($metodo === 'POST') {
+        $controller->criarMesa();
+    }
+
+    if ($metodo === 'PUT') {
+        $controller->atualizarMesa();
+    }
+
+    if ($metodo === 'DELETE') {
+        $controller->deletarMesa();
     }
 }
 
