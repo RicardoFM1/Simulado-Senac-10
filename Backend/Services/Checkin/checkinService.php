@@ -118,13 +118,14 @@ class CheckinService
                 'mensagem' => 'Checkin criado com sucesso'
             ];
         } catch (PDOException $e) {
-            if (str_contains($e->getMessage(), 'convidado_idconvidado')) {
+            if (str_contains($e->getMessage(), '1452')) {
+                throw new Exception('Usuário referenciado não encontrado', 404);
+            }
+
+            if (str_contains($e->getMessage(), '1062')) {
                 throw new Exception('Checkin já realizado', 409);
             }
 
-            if (str_contains($e->getMessage(), 'fk_checkin_usuario')) {
-                throw new Exception('Usuário referenciado não encontrado', 404);
-            }
             if (str_contains($e->getMessage(), 'fk_checkin_convidado')) {
                 throw new Exception('Convidado referenciado não encontrado', 404);
             }
