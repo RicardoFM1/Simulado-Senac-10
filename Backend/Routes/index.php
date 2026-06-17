@@ -41,6 +41,16 @@ if ($rota === '/usuario') {
     }
 }
 
+if ($rota === '/usuario/login') {
+    $controller = new UsuarioController();
+
+
+
+    if ($metodo === 'POST') {
+        $controller->fazerLogin();
+    }
+}
+
 
 http_response_code(404);
 echo json_encode([
