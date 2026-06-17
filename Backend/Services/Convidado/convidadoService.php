@@ -94,6 +94,14 @@ class ConvidadoService
             $convidadoDados['cpf'] = preg_replace('/\D/', '', $convidadoDados['cpf']);
             $convidadoDados['telefone'] = preg_replace('/\D/', '', $convidadoDados['telefone']);
 
+            $mesaReferenciada = new MesaService()->buscarMesaPorId($convidadoDados['mesa_idmesa']);
+            $convidadoReferenciador = $this->buscarConvidadoPorMesaId($convidadoDados['mesa_idmesa']);
+
+            if ($convidadoReferenciador['sucesso'] === true) {
+                if (count($convidadoReferenciador['dados']) >= $mesaReferenciada['dados']['capacidade']) {
+                    throw new Exception('Mesa lotada', 409);
+                }
+            }
 
             $criar = $this->db->prepare('INSERT INTO convidado (nome, sobrenome, email, cpf, telefone, categoria, mesa_idmesa)
             VALUES (:nome, :sobrenome, :email, :cpf, :telefone, :categoria, :mesa_idmesa)');
@@ -220,7 +228,7 @@ class ConvidadoService
             ];
         } catch (PDOException $e) {
 
-            if(str_contains($e->getMessage(), 'parent row')){
+            if (str_contains($e->getMessage(), 'parent row')) {
                 throw new Exception('Não é possível deletar um convidado referenciado', 409);
             }
             throw new Exception('Erro ao tentar deletar convidado', 500);
