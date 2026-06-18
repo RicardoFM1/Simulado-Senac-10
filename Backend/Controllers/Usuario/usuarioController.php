@@ -53,6 +53,54 @@ class UsuarioController
         }
     }
 
+    public function validarDadosEdicao($dados, $temSenha)
+    {
+        try {
+            $esquema = null;
+            $cargosPermitidos = ['administrador', 'ceremonialista'];
+            if ($temSenha) {
+
+                $esquema = v::key('nome', v::stringVal()->notEmpty()->length(1, 45))
+                    ->key('email', v::email())
+                    ->key('cpf', v::cpf())
+                    ->key('senha', v::stringVal()->notEmpty()->length(8, 255))
+                    ->key('cargo', v::in($cargosPermitidos));
+            } else {
+                $esquema = v::key('nome', v::stringVal()->notEmpty()->length(1, 45))
+                    ->key('email', v::email())
+                    ->key('cpf', v::cpf())
+                    ->key('senha', v::stringVal()->notEmpty()->length(0, 255)->regex('/[A-Z]/')->regex('/[a-z]/')->regex('/[0-9]/')->regex('/[!@#$%¨&*()]/'))
+                    ->key('cargo', v::in($cargosPermitidos));
+            }
+
+            $esquema->assert($dados);
+        } catch (NestedValidationException $e) {
+            $mensagemPersonalizada = [
+                'nome' => 'Nome inválido, min 1, max 45',
+                'email' => 'Email inválido',
+                'cpf' => 'Cpf inválido',
+                'senha' => 'Senha inválida, min 8 caracteres, max 255 caracteres. Necessário conter pelo menos:
+                1 letra minúscula, 1 maiúscula, 1 número e um caractere especial',
+                'cargo' => 'Cargo fora do escopo: administrador ou ceremonialista'
+            ];
+
+            $mensagemOriginal = $e->getMessages();
+            $mensagemTraduzida = [];
+
+            foreach ($mensagemOriginal as $campo => $mensagem) {
+                $mensagemTraduzida[$campo] = $mensagemPersonalizada[$campo] ?? $mensagem;
+            }
+
+            http_response_code(400);
+            echo json_encode([
+                'sucesso' => false,
+                'mensagem' => 'Erro de validação',
+                'erros' => $mensagemTraduzida
+            ]);
+            exit;
+        }
+    }
+
     public function apenasAdmin()
     {
         $jwt = Middleware::validarMiddleware();
