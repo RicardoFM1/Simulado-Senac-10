@@ -27,21 +27,21 @@
     display: flex;
     flex-direction: column;
     margin: 40px;
-    
+
 }
 
-.logo{
+.logo {
     width: 75px;
     margin-bottom: 15px;
 }
 
 .btnSubmit {
-    background-color: rgb(198, 127, 61) !important;
+    background-color: rgb(182, 119, 60) !important;
     border: none !important;
 }
 
-@media (max-width: 1024px){
-    .divFoto{
+@media (max-width: 1024px) {
+    .divFoto {
         display: none;
     }
 }

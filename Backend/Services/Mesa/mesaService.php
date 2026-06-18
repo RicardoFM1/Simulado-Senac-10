@@ -135,7 +135,7 @@ class MesaService
                 'mensagem' => 'Mesa deletada com sucesso'
             ];
         } catch (PDOException $e) {
-            throw new Exception('Erro ao tentar deletar mesa', 500);
+            throw new Exception('Erro ao tentar deletar mesa' . $e->getMessage(), 500);
         }
     }
 }
