@@ -7,5 +7,6 @@
 }
 
 .tabelaHeader {
-    background-color:  rgba(182, 119, 60, 0.685) !important;
+    background-color:  rgb(182, 119, 60) !important;
+    color: white !important;
 }

@@ -22,7 +22,7 @@
 }
 
 .botoesMeio > button{
-    background-color: unset !important;
+    background-color: unset;
     border: unset;
     color: gray !important;
 }
@@ -30,16 +30,26 @@
 .botoesMeio > button:hover{
     border-bottom: 3px solid rgb(249, 238, 179) !important;
     font-size: 20px;
+    background-color:  rgba(245, 245, 220, 0.619);
+    transition: all 0.3s ease;
+}
+
+.botoesMeio > button:focus{
+    border-bottom: 3px solid rgb(249, 238, 179) !important;
+    font-size: 20px;
+    background-color:  rgba(245, 245, 220, 0.619) !important;
+    transition: all 0.3s ease;
 }
 
 .botaoAtivo {
-     border-bottom: 3px solid rgb(249, 238, 179) !important;
+    border-bottom: 3px solid rgb(249, 238, 179) !important;
     font-size: 20px;
+    background-color: rgba(245, 245, 220, 0.619) !important;
 }
 
 .btnSair{
     background-color: rgba(237, 149, 76, 0.703) !important;
-    border: none !important;
+    border: none !important; 
     margin-right: 15px
 }
 

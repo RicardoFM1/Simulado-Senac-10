@@ -5,6 +5,8 @@ import Convidados from "../../components/Convidados/convidados";
 import Mesas from "../../components/Mesas/mesas";
 import Checkins from "../../components/Checkins/checkins";
 
+
+
 const Home = () => {
     const [telaAtiva, setTelaAtiva] = useState('dashboard')
     return (
@@ -14,7 +16,7 @@ const Home = () => {
                 {telaAtiva === 'dashboard' && <Dashboard/>}
                 {telaAtiva === 'convidados' && <Convidados/>}
                 {telaAtiva === 'mesas' && <Mesas/>}
-                {telaAtiva === 'checkins' && <Checkins/>}
+                {telaAtiva === 'checkin' && <Checkins/>}
             </main>
         </>
     )

@@ -32,7 +32,7 @@ class CheckinService
         if (empty($checkin)) {
             return [
                 'sucesso' => false,
-                'mensagem' => 'Checkin não encontrado',
+                'mensagem' => 'Checkin não realizado e/ou checkin não encontrado',
                 'codigo' => '404'
             ];
         }

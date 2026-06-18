@@ -172,7 +172,7 @@ const Convidados = () => {
                 <div className="m-5">
 
                     <h1>Listagem de convidado</h1>
-                    <p>{convidadosFiltrados.length ?? 0} Convidados listadas</p>
+                    <p>{convidadosFiltrados.length ?? 0} Convidados listados</p>
                     <p>Clique na linha da tabela para gerenciar os convidados</p>
                 </div>
 
@@ -198,7 +198,7 @@ const Convidados = () => {
             </div>
 
             <Button className={style.btnAdicionar} onClick={handleNovo}>Adicionar novo registro</Button>
-            <Tabela columns={columns} rows={convidadosFiltrados} keyField={'id_mesa'} handleSelected={handleSelected} />
+            <Tabela columns={columns} rows={convidadosFiltrados} keyField={'id_convidado'} handleSelected={handleSelected} />
             <ConvidadoModal dados={convidadoSelecionado} mesas={mesas} handleClose={handleClose} show={show} submit={enviarDados} handleDeletar={handleDeletar} />
         </div>
     )
