@@ -137,18 +137,31 @@ class UsuarioService
                 throw new Exception($usuario['mensagem'], $usuario['codigo']);
             }
 
+            
+            if (empty($usuarioDados['senha'])) {
+                $atualizar = $this->db->prepare('UPDATE usuario SET nome = :nome, email = :email, cpf = :cpf, cargo = :cargo
+                WHERE email = :email_usuario');
 
-            $atualizar = $this->db->prepare('UPDATE usuario SET nome = :nome, email = :email, cpf = :cpf, senha = :senha, cargo = :cargo
-            WHERE email = :email_usuario');
+                $atualizar->execute([
+                    ':nome' => $usuarioDados['nome'],
+                    ':email' => $usuarioDados['email'],
+                    ':cpf' => $usuarioDados['cpf'],
+                    ':cargo' => $usuarioDados['cargo'],
+                    ':email_usuario' => $email
+                ]);
+            } else {
+                $atualizar = $this->db->prepare('UPDATE usuario SET nome = :nome, email = :email, cpf = :cpf, senha = :senha, cargo = :cargo
+                WHERE email = :email_usuario');
 
-            $atualizar->execute([
-                ':nome' => $usuarioDados['nome'],
-                ':email' => $usuarioDados['email'],
-                ':cpf' => $usuarioDados['cpf'],
-                ':senha' => password_hash($usuarioDados['senha'], PASSWORD_DEFAULT),
-                ':cargo' => $usuarioDados['cargo'],
-                ':email_usuario' => $email
-            ]);
+                $atualizar->execute([
+                    ':nome' => $usuarioDados['nome'],
+                    ':email' => $usuarioDados['email'],
+                    ':cpf' => $usuarioDados['cpf'],
+                    ':senha' => password_hash($usuarioDados['senha'], PASSWORD_DEFAULT),
+                    ':cargo' => $usuarioDados['cargo'],
+                    ':email_usuario' => $email
+                ]);
+            }
 
             return [
                 'sucesso' => true,

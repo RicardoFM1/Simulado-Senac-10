@@ -127,7 +127,7 @@ const Mesas = () => {
     return (
         <div>
 
-            <div className="d-flex justify-content-between align-content-center align-items-center">
+            <div className="d-flex justify-content-between align-content-center align-items-center flex-column flex-xl-row">
 
 
                 <div className="m-5">
@@ -137,7 +137,7 @@ const Mesas = () => {
                     <p>Clique na linha da tabela para gerenciar as mesas</p>
                 </div>
 
-                <div className="me-5">
+                <div className="me-5 flex-column flex-xl-row">
                     <Form.Group>
 
                         <InputGroup>

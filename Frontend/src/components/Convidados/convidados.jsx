@@ -146,7 +146,7 @@ const Convidados = () => {
             const res = await Api.delete(`/convidado?email_convidado=${convidadoSelecionado?.email}`)
 
             if (res.status === 200) {
-                toast.success(res.data.mensagem || 'Convidado excluído com sucesso')
+                toast.success(res.data.mensagem || 'Convidado deletado com sucesso')
                 handleClose()
             }
 
@@ -166,7 +166,7 @@ const Convidados = () => {
     return (
         <div>
 
-            <div className="d-flex justify-content-between align-content-center align-items-center">
+            <div className="d-flex justify-content-between align-content-center align-items-center flex-column flex-xl-row">
 
 
                 <div className="m-5">
@@ -176,7 +176,7 @@ const Convidados = () => {
                     <p>Clique na linha da tabela para gerenciar os convidados</p>
                 </div>
 
-                <div className="me-5 d-flex gap-3">
+                <div className="me-5 d-flex gap-3 flex-column flex-xl-row">
                     <Form.Group>
 
                         <InputGroup>

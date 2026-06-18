@@ -148,7 +148,7 @@ const Checkins = () => {
     return (
         <div>
 
-            <div className="d-flex justify-content-between align-content-center align-items-center">
+            <div className="d-flex justify-content-between align-content-center align-items-center flex-column flex-xl-row">
 
 
                 <div className="m-5">
@@ -160,7 +160,7 @@ const Checkins = () => {
 
                 </div>
 
-                <div className="me-5 d-flex gap-3">
+                <div className="me-5 d-flex gap-3 flex-column flex-xl-row mb-4">
                     <Form.Group>
 
                         <InputGroup>

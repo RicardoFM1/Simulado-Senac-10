@@ -14,7 +14,7 @@ const Header = ({ telaAtiva, setTelaAtiva }) => {
         <Navbar className={style.navbar}>
             <Navbar.Brand className={style.navbarBrand}>
                 <img src={logoCasamento} alt="logo Casamento" className={style.logo} />
-                <h1>Senac Wedding</h1>
+                <h1 className="mb-0 mt-3">Senac Wedding</h1>
             </Navbar.Brand>
 
             <div className={style.botoesMeio}>
@@ -31,7 +31,7 @@ const Header = ({ telaAtiva, setTelaAtiva }) => {
 
             <Dropdown className="me-3 d-block d-xl-none" drop="start">
                 <Dropdown.Toggle className="bg-transparent border text-black" >
-                    <IoMdMenu size={25} />
+                    <IoMdMenu />
                 </Dropdown.Toggle>
                 <Dropdown.Menu className={style.menu}>
                     <Dropdown.Item>

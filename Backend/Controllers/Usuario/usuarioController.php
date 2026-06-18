@@ -23,7 +23,7 @@ class UsuarioController
             $esquema = v::key('nome', v::stringVal()->notEmpty()->length(1, 45))
                 ->key('email', v::email())
                 ->key('cpf', v::cpf())
-                ->key('senha', v::stringVal()->notEmpty()->length(8, 255))
+                ->key('senha', v::stringVal()->notEmpty()->length(8, 255)->regex('/[A-Z]/')->regex('/[a-z]/')->regex('/[0-9]/')->regex('/[!@#$%¨&*()]/'))
                 ->key('cargo', v::in($cargosPermitidos));
 
             $esquema->assert($dados);
@@ -63,26 +63,37 @@ class UsuarioController
                 $esquema = v::key('nome', v::stringVal()->notEmpty()->length(1, 45))
                     ->key('email', v::email())
                     ->key('cpf', v::cpf())
-                    ->key('senha', v::stringVal()->notEmpty()->length(8, 255))
+                    ->key('senha', v::stringVal()->length($temSenha ? 8 : 0, 255)->regex('/[A-Z]/')->regex('/[a-z]/')->regex('/[0-9]/')->regex('/[!@#$%¨&*()]/'))
                     ->key('cargo', v::in($cargosPermitidos));
             } else {
+               
                 $esquema = v::key('nome', v::stringVal()->notEmpty()->length(1, 45))
                     ->key('email', v::email())
                     ->key('cpf', v::cpf())
-                    ->key('senha', v::stringVal()->notEmpty()->length(0, 255)->regex('/[A-Z]/')->regex('/[a-z]/')->regex('/[0-9]/')->regex('/[!@#$%¨&*()]/'))
+                    ->key('senha', v::optional(v::stringVal()->length(0, 255)), false)
                     ->key('cargo', v::in($cargosPermitidos));
             }
 
             $esquema->assert($dados);
         } catch (NestedValidationException $e) {
-            $mensagemPersonalizada = [
-                'nome' => 'Nome inválido, min 1, max 45',
-                'email' => 'Email inválido',
-                'cpf' => 'Cpf inválido',
-                'senha' => 'Senha inválida, min 8 caracteres, max 255 caracteres. Necessário conter pelo menos:
-                1 letra minúscula, 1 maiúscula, 1 número e um caractere especial',
-                'cargo' => 'Cargo fora do escopo: administrador ou ceremonialista'
-            ];
+             if ($temSenha) {
+                $mensagemPersonalizada = [
+                    'nome' => 'Nome inválido, min 1, max 45',
+                    'email' => 'Email inválido',
+                    'cpf' => 'Cpf inválido',
+                    'senha' => 'Senha inválida, min 8, max 255',
+                    'cargo' => 'Cargo fora do escopo: administrador ou ceremonialista'
+                ];
+            } else {
+
+                $mensagemPersonalizada = [
+                    'nome' => 'Nome inválido, min 1, max 45',
+                    'email' => 'Email inválido',
+                    'cpf' => 'Cpf inválido',
+                    'senha' => 'Senha inválida, max 255',
+                    'cargo' => 'Cargo fora do escopo: administrador ou ceremonialista'
+                ];
+            }
 
             $mensagemOriginal = $e->getMessages();
             $mensagemTraduzida = [];
@@ -170,7 +181,11 @@ class UsuarioController
 
             $dados = json_decode(file_get_contents('php://input'), true);
             $email = $_GET['email_usuario'];
-            $this->validarDados($dados);
+            $temSenha = false;
+            if(!empty($dados['senha'])){
+                $temSenha = true;
+            }
+            $this->validarDadosEdicao($dados, $temSenha);
             http_response_code(200);
             echo json_encode($this->usuarioService->atualizarUsuario($dados, $email));
             exit;
