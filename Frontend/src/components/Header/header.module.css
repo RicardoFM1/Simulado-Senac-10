@@ -1,0 +1,66 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between !important;
+ 
+}
+
+.navbarBrand{
+    display: flex;
+    gap: 10px;
+    text-align: center;
+}
+
+.logo{
+    width: 55px;
+    margin-left: 10px;
+}
+
+.botoesMeio {
+    display: flex;
+    gap: 15px;
+}
+
+.botoesMeio > button{
+    background-color: unset !important;
+    border: unset;
+    color: gray !important;
+}
+
+.botoesMeio > button:hover{
+    border-bottom: 3px solid rgb(249, 238, 179) !important;
+    font-size: 20px;
+}
+
+.botaoAtivo {
+     border-bottom: 3px solid rgb(249, 238, 179) !important;
+    font-size: 20px;
+}
+
+.btnSair{
+    background-color: rgba(237, 149, 76, 0.703) !important;
+    border: none !important;
+    margin-right: 15px
+}
+
+.btnSair:hover{
+     background-color: rgba(237, 148, 76, 0.838) !important;
+}
+
+
+
+.menu > a > button {
+    background-color: unset !important;
+    border: none !important;
+color: gray ;
+}
+
+@media (max-width: 1024px){
+    .botoesMeio{
+        display: none
+
+    }
+    .botaoFim{
+        display: none
+    }
+}
