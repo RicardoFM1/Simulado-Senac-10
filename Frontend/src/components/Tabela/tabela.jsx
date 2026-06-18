@@ -20,7 +20,7 @@ const Tabela = ({ rows, columns, keyField, handleSelected }) => {
                     {temDados ? (
 
                         rows.map(row => (
-                            <tr onClick={() => handleSelected(row)} key={row[keyField]}>
+                            <tr style={{cursor: "pointer"}} onClick={() => handleSelected(row)} key={row[keyField]}>
                                 {columns.map(column => (
                                     <td key={column.accessor}>{column.render ? column.render(row) : row[column.accessor]}</td>
                                 ))}
